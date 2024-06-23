@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -22,12 +23,18 @@ import {
 
 function App(): React.JSX.Element {
   
+  const [name,setName] = useState("Mayank");
+  
+  function testName(){
+    setName("Mayank Seth")
+  }
   return (
    <View>
-    <Text style={{fontSize:30}}>Hello React Native</Text>
+    <Text style={{fontSize:30}}> {name}</Text>
+    <Button title='Press Here' onPress={testName} color={'black'} />
    </View>
   );
-}
+};
 
 
 
