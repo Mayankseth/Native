@@ -25,17 +25,31 @@ function App(): React.JSX.Element {
   
   const [name,setName] = useState("Mayank");
   
-  function testName(){
-    setName("Mayank Seth")
-  }
+  
   return (
    <View>
-    <Text style={{fontSize:30}}> {name}</Text>
-    <Button title='Press Here' onPress={testName} color={'black'} />
+
+    <Text style={styles.textBox}> React Native</Text>
+    <Text style={styles.textBox}> React Native</Text>
+    <Text style={styles.textBox}> React Native</Text>
+    
    </View>
   );
 };
 
+const styles = StyleSheet.create({
+  textBox:{
+    color:"blue",
+    backgroundColor:"beige",
+    fontSize:30,
+    padding:10,
+    marginBottom:10,
+    height:100,
+    borderRadius:10,
+    textAlign:"center",
+    textAlignVertical:"center"
+  }
+})
 
 
 export default App;
