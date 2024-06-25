@@ -35,61 +35,32 @@ function App(): React.JSX.Element {
       name: "Batman"
     },
     {
-      id:3,
+      id:53,
       name:"Spiderman"
     },
     {
-      id: 4,
+      id: 64,
       name : "Strange"
     },
     {
-      id: 2,
+      id: 82,
       name: "Strange"
     },
     {
-      id:3,
+      id:83,
       name:"Batman"
-    },
-    {
-      id: 4,
-      name : "Jmkkh"
-    },
-    {
-      id: 2,
-      name: "Ssm"
-    },
-    {
-      id:3,
-      name:"Ap"
-    },
-    {
-      id: 4,
-      name : "Jah"
-    },
-    {
-      id: 2,
-      name: "Sam"
-    },
-    {
-      id:3,
-      name:"Ap"
-    },
-    {
-      id: 4,
-      name : "Jah"
     }
-
   ]
   return (
    <View>
 
-    <Text style={{fontSize:30}}> Map List</Text>
-    <ScrollView style={{marginBottom:50}}> 
-    {
-      User.map((item)=><Text style={styles.item}>{item.name}</Text>)
-    }
-    </ScrollView>
-    
+    <Text style={{fontSize:30}}> Grid</Text>
+    <View style={{flex:1, flexDirection:"row", flexWrap:"wrap"}}>
+      {
+        User.map((item)=><Text style={styles.item}>{item.name}</Text>)
+      }
+    </View>
+      
    
    </View>
   );
@@ -98,12 +69,16 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   item:{
     fontSize:25,
-    color:"blue",
+    backgroundColor:"blue",
+    color:"white",
     borderWidth:2,
     borderColor:"black",
-    backgroundColor:"yellow",
-    margin:10,
-    padding:10
+    margin:5,
+    padding:5,
+    height:120,
+    width:120,
+    textAlignVertical:"center",
+    textAlign:"center"
   }
 })
 
