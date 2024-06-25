@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Button,
+  FlatList,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -24,73 +25,85 @@ import {
 
 function App(): React.JSX.Element {
   
-  const [name,setName] = useState("");
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [display, setDisplay] = useState(false)
+  const User = [
+    {
+      id: 1,
+      name:"Mayank"
+    },
+    {
+      id: 2,
+      name: "Batman"
+    },
+    {
+      id:3,
+      name:"Spiderman"
+    },
+    {
+      id: 4,
+      name : "Strange"
+    },
+    {
+      id: 2,
+      name: "Strange"
+    },
+    {
+      id:3,
+      name:"Batman"
+    },
+    {
+      id: 4,
+      name : "Jmkkh"
+    },
+    {
+      id: 2,
+      name: "Ssm"
+    },
+    {
+      id:3,
+      name:"Ap"
+    },
+    {
+      id: 4,
+      name : "Jah"
+    },
+    {
+      id: 2,
+      name: "Sam"
+    },
+    {
+      id:3,
+      name:"Ap"
+    },
+    {
+      id: 4,
+      name : "Jah"
+    }
 
-  const resetFormData = () =>{
-    setDisplay(false);
-    setName('');
-    setEmail('');
-    setPassword('');
-  }
-  
+  ]
   return (
    <View>
 
-    <Text style={{fontSize:30}}> Text Input</Text>
+    <Text style={{fontSize:30}}> Map List</Text>
+    <ScrollView style={{marginBottom:50}}> 
+    {
+      User.map((item)=><Text style={styles.item}>{item.name}</Text>)
+    }
+    </ScrollView>
     
-    <TextInput
-      style={styles.TextInput}
-      placeholder='Enter your name here '
-      value={name}
-      onChangeText={(text)=>setName(text)}
-      />
-      <TextInput
-      style={styles.TextInput}
-      placeholder='Enter your email here '
-      value={email}
-      onChangeText={(text)=>setEmail(text)}
-      />
-      <TextInput
-      style={styles.TextInput}
-      placeholder='Enter your Password here '
-      value={password}
-      secureTextEntry={true}
-      onChangeText={(text)=>setPassword(text)}
-      />
-
-
-    <View style={{marginBottom:10}}>
-      <Button title='Print Details' color='green' onPress={()=> setDisplay(true)}/>
-    </View>
-    <Button title='Press to clear' onPress={resetFormData}/>
-
-    <View>
-      {
-        display?
-        <View>
-          <Text style={{fontSize:25}}> User Name is: {name}</Text>
-          <Text style={{fontSize:25}}> User Email is: {email}</Text>
-          <Text style={{fontSize:25}}> User Password is: {password}</Text>
-
-          </View>: null
-
-      }
-        
-    </View>
+   
    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  TextInput:{
-    fontSize:18,
+  item:{
+    fontSize:25,
     color:"blue",
     borderWidth:2,
-    borderColor:"blue",
-    margin:10
+    borderColor:"black",
+    backgroundColor:"yellow",
+    margin:10,
+    padding:10
   }
 })
 
