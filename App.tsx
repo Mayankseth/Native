@@ -12,6 +12,7 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
+  SectionList,
   StatusBar,
   StyleSheet,
   Text,
@@ -28,57 +29,62 @@ function App(): React.JSX.Element {
   const User = [
     {
       id: 1,
-      name:"Mayank"
-    },
-    {
-      id: 2,
-      name: "Batman"
+      name:"Mayank",
+      data: ["php", "React" ,"Angular"]
     },
     {
       id:53,
-      name:"Spiderman"
+      name:"Spiderman",
+      data:["C","C++","python"]
     },
     {
       id: 64,
-      name : "Strange"
-    },
-    {
-      id: 82,
-      name: "Strange"
+      name : "Strange",
+      data:["Java","JS","html"]
     },
     {
       id:83,
-      name:"Batman"
+      name:"Batman",
+      data:["html","css","Js"]
     }
   ]
   return (
    <View>
 
-    <Text style={{fontSize:30}}> Grid</Text>
-    <View style={{flex:1, flexDirection:"row", flexWrap:"wrap"}}>
-      {
-        User.map((item)=><Text style={styles.item}>{item.name}</Text>)
-      }
-    </View>
-      
-   
+    <Text style={{fontSize:30}}> Component in loop with flatlist</Text>
+    <SectionList
+      sections={User}
+      renderItem={({item})=><Text style={{fontSize:20, marginLeft:20}}>{item}</Text>}
+      renderSectionHeader={({section:{name}})=><Text style={{fontSize:20, color:"red"}}>{name}</Text>}/>
+    
    </View>
   );
 };
 
+const UserData = (props) => {
+  const item=props.item;
+  return (
+   <View style={styles.box}>
+     <Text style={styles.item}>{item.name}</Text>
+     <Text style={styles.item}>{item.email}</Text>
+   </View>
+
+  )
+}
+
 const styles = StyleSheet.create({
   item:{
-    fontSize:25,
-    backgroundColor:"blue",
-    color:"white",
-    borderWidth:2,
-    borderColor:"black",
+    fontSize:20,
+    color:"purple",
     margin:5,
-    padding:5,
-    height:120,
-    width:120,
-    textAlignVertical:"center",
-    textAlign:"center"
+    flex:1
+  },
+  box:{
+    flexDirection:"row",
+    borderColor:"black",
+    borderWidth:2,
+    marginBottom:10
+
   }
 })
 
