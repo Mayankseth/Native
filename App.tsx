@@ -14,6 +14,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -23,31 +24,73 @@ import {
 
 function App(): React.JSX.Element {
   
-  const [name,setName] = useState("Mayank");
-  
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [display, setDisplay] = useState(false)
+
+  const resetFormData = () =>{
+    setDisplay(false);
+    setName('');
+    setEmail('');
+    setPassword('');
+  }
   
   return (
    <View>
 
-    <Text style={styles.textBox}> React Native</Text>
-    <Text style={styles.textBox}> React Native</Text>
-    <Text style={styles.textBox}> React Native</Text>
+    <Text style={{fontSize:30}}> Text Input</Text>
     
+    <TextInput
+      style={styles.TextInput}
+      placeholder='Enter your name here '
+      value={name}
+      onChangeText={(text)=>setName(text)}
+      />
+      <TextInput
+      style={styles.TextInput}
+      placeholder='Enter your email here '
+      value={email}
+      onChangeText={(text)=>setEmail(text)}
+      />
+      <TextInput
+      style={styles.TextInput}
+      placeholder='Enter your Password here '
+      value={password}
+      secureTextEntry={true}
+      onChangeText={(text)=>setPassword(text)}
+      />
+
+
+    <View style={{marginBottom:10}}>
+      <Button title='Print Details' color='green' onPress={()=> setDisplay(true)}/>
+    </View>
+    <Button title='Press to clear' onPress={resetFormData}/>
+
+    <View>
+      {
+        display?
+        <View>
+          <Text style={{fontSize:25}}> User Name is: {name}</Text>
+          <Text style={{fontSize:25}}> User Email is: {email}</Text>
+          <Text style={{fontSize:25}}> User Password is: {password}</Text>
+
+          </View>: null
+
+      }
+        
+    </View>
    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  textBox:{
+  TextInput:{
+    fontSize:18,
     color:"blue",
-    backgroundColor:"beige",
-    fontSize:30,
-    padding:10,
-    marginBottom:10,
-    height:100,
-    borderRadius:10,
-    textAlign:"center",
-    textAlignVertical:"center"
+    borderWidth:2,
+    borderColor:"blue",
+    margin:10
   }
 })
 
