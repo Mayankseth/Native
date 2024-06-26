@@ -18,6 +18,7 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
@@ -27,46 +28,62 @@ import {
 
 function App(): React.JSX.Element {
 
- 
+ const [sRadio,setsRadio] = useState(0)
 
   return (
    <View style={styles.main}>
-      <TouchableHighlight>
-        <Text style={styles.button}>Button</Text>
-      </TouchableHighlight>
-      <TouchableHighlight>
-        <Text style={[styles.button,styles.success]}>Sucess</Text>
-      </TouchableHighlight>
-      <TouchableHighlight>
-        <Text style={[styles.button,styles.error]}>Error</Text>
-      </TouchableHighlight>
-
-
+      <TouchableOpacity onPress={()=> setsRadio(1)}>
+        <View style={styles.radioWrapper}>
+          <View style={styles.radio}>
+            {
+              sRadio===1?<View style={styles.radioBg}></View>:null
+            }
+          </View>
+          <Text style={styles.radioText}>Radio 1</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>setsRadio(2)}>
+        <View style={styles.radioWrapper}>
+          <View style={styles.radio}>
+            {
+              sRadio===2?<View style={styles.radioBg}></View>:null
+            }
+          </View>
+          <Text style={styles.radioText}>Radio 2</Text>
+        </View>
+      </TouchableOpacity>
    </View>
   );
 };
 const styles = StyleSheet.create({
   main:{
-    flex:1
+    flex:1,
+    alignItems:"center",
+    justifyContent:"center"
   },
-  button:{
-    backgroundColor:"#bbb",
-    color:"white",
-    fontSize:25,
-    textAlign:"center",
-    padding:10,
-    margin:10,
-    borderRadius:10,
-    shadowColor:"red",
-    elevation:10
-
+  radioText:{
+    fontSize:20
   },
-  success:{
-    backgroundColor:"purple"
+  radio:{
+    height:40,
+    width:40,
+    borderColor:"black",
+    borderWidth:2,
+    borderRadius:20,
+    margin:10
   },
-  error:{
-    backgroundColor:"red"
+  radioWrapper:{
+    flexDirection:"row",
+    alignItems:"center"
+  },
+  radioBg:{
+    height:28,
+    width:28,
+    backgroundColor:"blue",
+    borderRadius:20,
+    margin:4
   }
+  
 
 })
 
