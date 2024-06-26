@@ -17,6 +17,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableHighlight,
   useColorScheme,
   View,
 } from 'react-native';
@@ -25,46 +26,50 @@ import {
 
 
 function App(): React.JSX.Element {
-    
-  const [count,setCount] = useState(0);
-  const [data,setData] = useState(100);
 
-  // useEffect(()=>{
-  //   console.warn(count);
-  // }, [count]);
-
-  // useEffect(()=>{
-  //   console.warn(data);
-  // },[data]);
+ 
 
   return (
-   <View>
+   <View style={styles.main}>
+      <TouchableHighlight>
+        <Text style={styles.button}>Button</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button,styles.success]}>Sucess</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button,styles.error]}>Error</Text>
+      </TouchableHighlight>
 
-    <Text style={{fontSize:30}}>{data} UseEffect counter : {count}</Text>
-    <Button title='Inc counter' onPress={()=>setCount(count+1)}/>
-    <Button title='Inc Data' onPress={()=>setData(data+1)}/>
-      <User info={{count,data}}/>
+
    </View>
   );
 };
+const styles = StyleSheet.create({
+  main:{
+    flex:1
+  },
+  button:{
+    backgroundColor:"#bbb",
+    color:"white",
+    fontSize:25,
+    textAlign:"center",
+    padding:10,
+    margin:10,
+    borderRadius:10,
+    shadowColor:"red",
+    elevation:10
 
-const User = (props) =>{
+  },
+  success:{
+    backgroundColor:"purple"
+  },
+  error:{
+    backgroundColor:"red"
+  }
 
-  useEffect(()=>{
-    console.warn("count activated")
-  },[props.info.count])
-  useEffect(()=>{
-    console.warn("Data activated")
-  },[props.info.data])
+})
 
-  return (
-    <View>
-      <Text style={{fontSize:30}}>counter: {props.info.count}</Text>
-      <Text style={{fontSize:30}}>data :{props.info.data} </Text>
-    </View>
-
-  )
-}
 
 
 
