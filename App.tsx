@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Button,
@@ -25,68 +25,47 @@ import {
 
 
 function App(): React.JSX.Element {
-  
-  const User = [
-    {
-      id: 1,
-      name:"Mayank",
-      data: ["php", "React" ,"Angular"]
-    },
-    {
-      id:53,
-      name:"Spiderman",
-      data:["C","C++","python"]
-    },
-    {
-      id: 64,
-      name : "Strange",
-      data:["Java","JS","html"]
-    },
-    {
-      id:83,
-      name:"Batman",
-      data:["html","css","Js"]
-    }
-  ]
+    
+  const [count,setCount] = useState(0);
+  const [data,setData] = useState(100);
+
+  // useEffect(()=>{
+  //   console.warn(count);
+  // }, [count]);
+
+  // useEffect(()=>{
+  //   console.warn(data);
+  // },[data]);
+
   return (
    <View>
 
-    <Text style={{fontSize:30}}> Component in loop with flatlist</Text>
-    <SectionList
-      sections={User}
-      renderItem={({item})=><Text style={{fontSize:20, marginLeft:20}}>{item}</Text>}
-      renderSectionHeader={({section:{name}})=><Text style={{fontSize:20, color:"red"}}>{name}</Text>}/>
-    
+    <Text style={{fontSize:30}}>{data} UseEffect counter : {count}</Text>
+    <Button title='Inc counter' onPress={()=>setCount(count+1)}/>
+    <Button title='Inc Data' onPress={()=>setData(data+1)}/>
+      <User info={{count,data}}/>
    </View>
   );
 };
 
-const UserData = (props) => {
-  const item=props.item;
+const User = (props) =>{
+
+  useEffect(()=>{
+    console.warn("count activated")
+  },[props.info.count])
+  useEffect(()=>{
+    console.warn("Data activated")
+  },[props.info.data])
+
   return (
-   <View style={styles.box}>
-     <Text style={styles.item}>{item.name}</Text>
-     <Text style={styles.item}>{item.email}</Text>
-   </View>
+    <View>
+      <Text style={{fontSize:30}}>counter: {props.info.count}</Text>
+      <Text style={{fontSize:30}}>data :{props.info.data} </Text>
+    </View>
 
   )
 }
 
-const styles = StyleSheet.create({
-  item:{
-    fontSize:20,
-    color:"purple",
-    margin:5,
-    flex:1
-  },
-  box:{
-    flexDirection:"row",
-    borderColor:"black",
-    borderWidth:2,
-    marginBottom:10
-
-  }
-})
 
 
 export default App;
