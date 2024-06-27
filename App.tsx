@@ -5,6 +5,7 @@
  * @format
  */
 
+import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -24,35 +25,51 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-
-
+const stack=createNativeStackNavigator();
 
 function App(): React.JSX.Element {
 
-  const [hide,setHide] = useState(false)
-  const [barstatus,setBarStatus] = useState("default");
+ 
   return (
-   <View style={styles.main}>
-      <StatusBar
-        backgroundColor="purple"
-         barStyle='light-content'
-         hidden={hide}
+   <NavigationContainer>
 
-        />
-        <Button title='Toggle status bar' onPress={()=> setHide(!hide)}/>
-        <Button title='Bar status' onPress={()=> setBarStatus('dark-content')}/>
+    <stack.Navigator  screenOptions={{
+          
+          headerStyle:{
+            backgroundColor:"purple"
+          },
+          headerTitleStyle:{
+            fontSize:25
+          },
+          headerTintColor:'white'
+        }}>
+    <stack.Screen name='Login' component={Login} 
+       />
+        <stack.Screen name='Home' component={Home}/>
+    </stack.Navigator>
 
-   </View>
+   </NavigationContainer>
   );
 };
-const styles = StyleSheet.create({
- main:{
-  flex:1,
-  justifyContent:"center"
- }
- 
-})
+
+const Home = () => {
+  return (
+    <View style={{flex:1, alignItems:"center", justifyContent:"center", }}>
+    <Text style={{fontSize:25}}>Home Screen</Text>
+  </View>
+  )
+}
+
+const Login = (props) => {
+  return (
+    <View style={{flex:1, alignItems:"center", justifyContent:"center", }}>
+    <Text style={{fontSize:25, marginBottom:10}}>Login Screen</Text>
+    <Button title='Go to Home Page' onPress={()=>props.navigation.navigate("Home")}/>
+  </View>
+  )
+}
 
 
 
