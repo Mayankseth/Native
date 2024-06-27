@@ -26,6 +26,8 @@ import {
   View,
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import { Home } from './components/Home';
+import { Login } from './components/Login';
 
 const stack=createNativeStackNavigator();
 
@@ -46,7 +48,10 @@ function App(): React.JSX.Element {
           headerTintColor:'white'
         }}>
     <stack.Screen name='Login' component={Login} 
-       />
+        options={{
+          headerTitle:()=><Button title='Left'/>,
+          headerRight: ()=> <Header/>
+        }}/>
         <stack.Screen name='Home' component={Home}/>
     </stack.Navigator>
 
@@ -54,22 +59,15 @@ function App(): React.JSX.Element {
   );
 };
 
-const Home = () => {
-  return (
-    <View style={{flex:1, alignItems:"center", justifyContent:"center", }}>
-    <Text style={{fontSize:25}}>Home Screen</Text>
-  </View>
+const Header = () => {
+  return(
+    <Text>Header</Text>
   )
 }
 
-const Login = (props) => {
-  return (
-    <View style={{flex:1, alignItems:"center", justifyContent:"center", }}>
-    <Text style={{fontSize:25, marginBottom:10}}>Login Screen</Text>
-    <Button title='Go to Home Page' onPress={()=>props.navigation.navigate("Home")}/>
-  </View>
-  )
-}
+
+
+
 
 
 
