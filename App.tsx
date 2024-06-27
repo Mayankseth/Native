@@ -11,6 +11,7 @@ import {
   Button,
   FlatList,
   Modal,
+  Pressable,
   SafeAreaView,
   ScrollView,
   SectionList,
@@ -29,51 +30,28 @@ import {
 
 function App(): React.JSX.Element {
 
-  const [show,setShow] = useState(false)
-
+  const [hide,setHide] = useState(false)
+  const [barstatus,setBarStatus] = useState("default");
   return (
    <View style={styles.main}>
-    <Modal transparent={true} visible={show} animationType='slide'>
-      <View style={styles.centered}>
-        <View style={styles.modalview}>
-          <Text style={styles.modalText}>Hello There!!</Text>
-          <Button title='close' onPress={()=> setShow(false)}/>
-        </View>
-      </View>
-    </Modal>
-      <View style={styles.button}>
-        <Button title='Open' onPress={()=> setShow(true)}/>
-      </View>
+      <StatusBar
+        backgroundColor="purple"
+         barStyle='light-content'
+         hidden={hide}
+
+        />
+        <Button title='Toggle status bar' onPress={()=> setHide(!hide)}/>
+        <Button title='Bar status' onPress={()=> setBarStatus('dark-content')}/>
+
    </View>
   );
 };
 const styles = StyleSheet.create({
  main:{
-  flex:1
- },
- button:{
   flex:1,
-  justifyContent:"flex-end"
- },
- centered:{
-  flex:1,
-  justifyContent:"center",
-  alignItems:"center"
- },
- modalview:{
-    backgroundColor:"white",
-    padding:30,
-    width:300,
-    borderRadius:20,
-    shadowColor:"black",
-    elevation:5,
-
- },
- modalText:{
-  fontSize:30,
-  marginBottom:20
+  justifyContent:"center"
  }
-
+ 
 })
 
 
