@@ -5,7 +5,6 @@
  * @format
  */
 
-import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -25,51 +24,55 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import { Home } from './components/Home';
-import { Login } from './components/Login';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
-const stack=createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+
 
 function App(): React.JSX.Element {
 
+  const [data,setData] = useState(undefined)
+
+  const getApiData = async()=>{
+    const url= "https://jsonplaceholder.typicode.com/posts/1";
+    let response = await fetch(url);
+    response = await response.json();
+    setData(response)
+
+  }
+  useEffect(()=>{
+    getApiData();
+  },[])
  
   return (
-   <NavigationContainer>
-
-    <stack.Navigator  screenOptions={{
-          
-          headerStyle:{
-            backgroundColor:"purple"
-          },
-          headerTitleStyle:{
-            fontSize:25
-          },
-          headerTintColor:'white'
-        }}>
-    <stack.Screen name='Login' component={Login} 
-        options={{
-          headerTitle:()=><Button title='Left'/>,
-          headerRight: ()=> <Header/>
-        }}/>
-        <stack.Screen name='Home' component={Home}/>
-    </stack.Navigator>
-
-   </NavigationContainer>
+   <View>
+    <Text style={{fontSize:25}}>Api call</Text>
+    {
+    data? <View>
+    <Text style={{fontSize:25}}>{data.title}</Text>
+      </View>:null
+   }
+   </View>
+   
   );
 };
-
-const Header = () => {
-  return(
-    <Text>Header</Text>
+const Login = () =>{
+  return (
+    <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+    <Text style={{fontSize:25}}>Login</Text>
+  </View>
   )
 }
 
-
-
-
-
-
+const SignUp = () =>{
+  return (
+    <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
+      <Text style={{fontSize:25}}>SignUp</Text>
+    </View>
+  )
+}
 
 
 export default App;
