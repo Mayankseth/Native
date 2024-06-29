@@ -28,38 +28,34 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
-const Tab = createMaterialTopTabNavigator();
-
-
 
 function App(): React.JSX.Element {
-  const [data,setData] = useState([]);
-  const getApiData = async () =>{
-    const url="https://jsonplaceholder.typicode.com/posts"
-    let result = await fetch(url);
-    result = await result.json();
-    setData(result);
-  }
+  const [data,setData]= useState([])
   
-  useEffect(()=>{
-    getApiData();
-  },[])
- 
+  
+  const saveApiData = async() =>{
+    const data={
+      name:"Ap",
+      age:"22",
+      email:"ap@test"
+    }
+
+    const url= "http://10.0.2.2:3000/users"
+    let result = await fetch(url ,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(data)
+    })
+    result=result.json();
+    console.warn(data)
+  } 
+
   return (
-   <ScrollView>
-      <Text style={{fontSize:20}}>List call using api</Text>
-      {
-        data.length?
-        data.map((item)=>
-          <View style={{padding:10, borderBottomColor:"#ccc", borderBottomWidth:2}}>
-            <Text style={{fontSize:15, backgroundColor:"#ccc"}}>Id: {item.id}</Text>
-            <Text style={{fontSize:15}}>Title: {item.title}</Text>
-            <Text style={{fontSize:15}}>Body: {item.body}</Text>
-          </View>
-        ):
-        null
-      }
-   </ScrollView>
+   <View>
+    <Text style={{fontSize:20}}>Call json server api</Text>
+    <Button title='Save Data' onPress={saveApiData}/>
+   
+   </View>
    
   );
 };
