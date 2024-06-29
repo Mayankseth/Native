@@ -34,7 +34,33 @@ function App(): React.JSX.Element {
   const [age,setAge] = useState()
   const [email,setEmail] = useState()
 
+  const [errorName , setNameError] = useState(false)
+  const [errorAge , setAgeError] = useState(false)
+  const [errorEmail , setEmailError] = useState(false)
+
   const saveData = async ()=>{
+
+    if(!name){
+      setNameError(true)
+    }
+    else{
+      setNameError(false)
+    }
+    if(!age){
+      setAgeError(true)
+    }
+    else{
+      setAgeError(false)
+    }
+    if(!email){
+      setEmailError(true)
+    }
+    else{
+      setEmailError(false)
+    }
+    if(!name || !age || !email){
+      return false
+    }
     const url="http://10.0.2.2:3000/users"
     let result = await fetch(url, {
       method:"POST",
@@ -53,8 +79,17 @@ function App(): React.JSX.Element {
    <View>
     <Text style={{fontSize:20}}>Call json server with Input</Text>
     <TextInput  placeholder='Enter Name' style={styles.input} value={name} onChangeText={(text)=> setName(text)}/>
+      {
+        errorName? <Text style={{color:"red"}}> Enter valid Text</Text>:null
+      }
     <TextInput  placeholder='Enter Age' style={styles.input} value={age} onChangeText={(text)=> setAge(text)}/>
+    {
+        errorAge? <Text style={{color:"red"}}> Enter valid Age</Text>:null
+      }
     <TextInput  placeholder='Enter EMail' style={styles.input} value={email} onChangeText={(text)=> setEmail(text)}/>
+    {
+        errorEmail? <Text style={{color:"red"}}> Enter valid Email</Text>:null
+      }
     <Button title='Save Data' onPress={saveData}/>
 
    
