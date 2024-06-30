@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 
 import {
   Button,
@@ -22,41 +22,42 @@ import {
  
   View,
 } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
 
 function App(): React.JSX.Element {
-  const [data,setData]=useState([])
-  
-  const searchUser = async(text) =>{
-    const url= `http://10.0.2.2:3000/users?q=${text}`;
-    let result = await fetch(url)
-    result= await result.json();
-    if(result){
-      setData(result)
-    }
+  const input = useRef();
+
+  const updateInput=()=>{
+    input.current.focus();
+    input.current.setNativeProps({
+      fontSize:25,
+      color:"red"
+    })
   }
 
   return (
-    <View>
-      <Text style={{fontSize:25}}>Search with Api</Text>
-      <TextInput style={{borderColor:"skyblue", borderWidth:1, margin:10, fontSize:20}} placeholder={"search"}
-        onChangeText={(text)=>searchUser(text)}/>
-        {
-          data.length?
-          data.map((item)=>
-              <View style={{padding:10, justifyContent:"space-around",flexDirection:"row"}}>
-                <Text>{item.name}</Text>
-                <Text>{item.age}</Text>
-                <Text>{item.email}</Text>
-              </View>
-        ):null
-        }
+    <View style={styles.container}>
+     <TextInput ref={input} placeholder='Enter Email' style={styles.input}/>
+      <TextInput placeholder='Enter Password' style={styles.input}/>
+      <Button title='Change' onPress={updateInput}/>
     </View>
    
   );
 };
 
+const styles=StyleSheet.create({
+  container:{
+    flex:1,
+    padding:10
+  },
+  input:{
+    borderColor:"skyblue",
+    borderWidth:2,
+    margin:10
+  }
+})
 
 
 
