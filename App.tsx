@@ -22,41 +22,35 @@ import {
  
   View,
 } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 function App(): React.JSX.Element {
-  const input = useRef();
-
-  const updateInput=()=>{
-    input.current.focus();
-    input.current.setNativeProps({
-      fontSize:25,
-      color:"red"
-    })
+  const [user,setUser] = useState('')
+  const setData = async()=>{
+    await AsyncStorage.setItem("name","Ap")
   }
-
+  const getData= async() =>{
+    const name = await AsyncStorage.getItem("name")
+    setUser(name)
+  }
+  const removeData = async() =>{
+    await AsyncStorage.removeItem("user");
+    setUser('')
+  }
   return (
-    <View style={styles.container}>
-     <TextInput ref={input} placeholder='Enter Email' style={styles.input}/>
-      <TextInput placeholder='Enter Password' style={styles.input}/>
-      <Button title='Change' onPress={updateInput}/>
+    <View style={{marginTop:100, marginLeft:30}}>
+      <Text style={{fontSize:25}}> Async Storage | {user}</Text>
+      <Button title='Save Data' onPress={setData}/>
+      <Button title='Get Data'onPress={getData}/>
+      <Button title='Remove' onPress={removeData}/>
     </View>
    
   );
 };
 
 const styles=StyleSheet.create({
-  container:{
-    flex:1,
-    padding:10
-  },
-  input:{
-    borderColor:"skyblue",
-    borderWidth:2,
-    margin:10
-  }
+ 
 })
 
 
