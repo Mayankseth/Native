@@ -24,9 +24,13 @@ import {
   View,
 } from 'react-native';
 
-
+import { ADD_TO_CART } from './redux/constants';
 
 function Product(props): React.JSX.Element {
+
+    const handleaddToCart = (item) =>{
+        console.warn('called',item)
+      }
  
     const item = props.item;
   return (
@@ -36,7 +40,7 @@ function Product(props): React.JSX.Element {
           <Text style={{fontSize:25}}>{item.color}</Text>
           <Text style={{fontSize:25}}>{item.price}</Text>
           <Image style={{height:150, width:150}} source={{uri:item.image}}/>
-          <Button title='Add to Cart'/>
+          <Button title='Add to Cart' onPress={()=>{handleaddToCart(item)}}/>
     </View>
   );
 };

@@ -31,7 +31,6 @@ function Header(): React.JSX.Element {
     <View >
       <Text style={{fontSize:20, textAlign:"right", padding:10, backgroundColor:"purple"}}>Header</Text>
 
-      
     </View>
    
   );

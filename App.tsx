@@ -27,7 +27,6 @@ import Header from './components/Header';
 import Product from './components/Product';
 
 
-
 function App(): React.JSX.Element {
   const products = [
     {
@@ -49,6 +48,7 @@ function App(): React.JSX.Element {
       image:'https://cdn-icons-png.freepik.com/256/65/65958.png?semt=ais_hybrid'
     }
   ]
+ 
  
   return (
     <View >
