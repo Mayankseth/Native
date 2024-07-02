@@ -10,6 +10,7 @@ import React, { useEffect, useState,useRef } from 'react';
 import {
   Button,
   FlatList,
+  Image,
   Modal,
   Pressable,
   SafeAreaView,
@@ -22,37 +23,47 @@ import {
  
   View,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Header from './components/Header';
+import Product from './components/Product';
+
 
 
 function App(): React.JSX.Element {
-  const [user,setUser] = useState('')
-  const setData = async()=>{
-    await AsyncStorage.setItem("name","Ap")
-  }
-  const getData= async() =>{
-    const name = await AsyncStorage.getItem("name")
-    setUser(name)
-  }
-  const removeData = async() =>{
-    await AsyncStorage.removeItem("user");
-    setUser('')
-  }
+  const products = [
+    {
+      name:'Samsung Phone',
+      price:30000,
+      color:'Blue',
+      image:'https://cdn-icons-png.freepik.com/256/65/65958.png?semt=ais_hybrid'
+    },
+    {
+      name:'Apple Iphone ',
+      price:130000,
+      color:'Black',
+      image:'https://cdn-icons-png.freepik.com/256/65/65958.png?semt=ais_hybrid'
+    },
+    {
+      name:'Nokia phone',
+      price:50000,
+      color:'White',
+      image:'https://cdn-icons-png.freepik.com/256/65/65958.png?semt=ais_hybrid'
+    }
+  ]
+ 
   return (
-    <View style={{marginTop:100, marginLeft:30}}>
-      <Text style={{fontSize:25}}> Async Storage | {user}</Text>
-      <Button title='Save Data' onPress={setData}/>
-      <Button title='Get Data'onPress={getData}/>
-      <Button title='Remove' onPress={removeData}/>
+    <View >
+      <Header/>
+      <ScrollView>
+      {
+        products.map((item)=><Product item={item}/>)
+      }
+      </ScrollView>
+      
+      
     </View>
    
   );
 };
-
-const styles=StyleSheet.create({
- 
-})
-
 
 
 
