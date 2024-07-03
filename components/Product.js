@@ -26,7 +26,7 @@ import {
 
 import { ADD_TO_CART } from './redux/constants';
 
-function Product(props): React.JSX.Element {
+function Product(props) {
 
     const handleaddToCart = (item) =>{
         console.warn('called',item)
