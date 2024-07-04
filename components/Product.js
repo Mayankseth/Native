@@ -26,7 +26,7 @@ import {
 
 import { ADD_TO_CART } from './redux/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from './redux/action';
+import { addToCart,removeFromCart } from './redux/action';
 
 
 const Product = (props) =>{
@@ -35,18 +35,29 @@ const Product = (props) =>{
     const dispatch = useDispatch();
     const [isAdded,setIsAdded] = useState(false)
     const cartItems = useSelector((state)=>state.reducer)
+
+
     const handleaddToCart=(item)=>{
       dispatch(addToCart(item))
     }
+
+    const handleRemovecart=(item)=>{
+        dispatch(removeFromCart(item.name))
+    }
+
+
+
     useEffect(()=>{
-      if(cartItems && cartItems.length){
-        cartItems.forEach((element)=>{
-            if(element.name===item.name){
-                setIsAdded(true)
-            }
-        })
-      }
-    })
+    let result=cartItems.filter((element)=>{
+      return element.name===item.name
+    });
+    if(result.length){
+      setIsAdded(true)
+    }
+    else{
+      setIsAdded(false)
+    }
+    },)
  
  return(
 
