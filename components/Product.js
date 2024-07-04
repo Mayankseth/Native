@@ -25,24 +25,45 @@ import {
 } from 'react-native';
 
 import { ADD_TO_CART } from './redux/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from './redux/action';
 
-function Product(props) {
 
-    const handleaddToCart = (item) =>{
-        console.warn('called',item)
-      }
- 
+const Product = (props) =>{
+
     const item = props.item;
-  return (
-    
-      <View style={{alignItems:"center", borderBottomColor:"purple", borderBottomWidth:2, padding:10}}>
-          <Text style={{fontSize:25}}>{item.name}</Text>
-          <Text style={{fontSize:25}}>{item.color}</Text>
-          <Text style={{fontSize:25}}>{item.price}</Text>
-          <Image style={{height:150, width:150}} source={{uri:item.image}}/>
-          <Button title='Add to Cart' onPress={()=>{handleaddToCart(item)}}/>
+    const dispatch = useDispatch();
+    const [isAdded,setIsAdded] = useState(false)
+    const cartItems = useSelector((state)=>state.reducer)
+    const handleaddToCart=(item)=>{
+      dispatch(addToCart(item))
+    }
+    useEffect(()=>{
+      if(cartItems && cartItems.length){
+        cartItems.forEach((element)=>{
+            if(element.name===item.name){
+                setIsAdded(true)
+            }
+        })
+      }
+    })
+ 
+ return(
+
+    <View style={{alignItems:"center", borderBottomColor:"orange", borderBottomWidth:2, padding:10, marginBottom:4}}>
+      <Text style={{fontSize:20}}>{item.name}</Text>
+      <Text style={{fontSize:24}}>{item.price}</Text>
+      <Text style={{fontSize:24}}>{item.color}</Text>
+      {
+        isAdded?
+        <Button title='Remove from Cart' onPress={()=>handleaddToCart(item)}/>
+        :
+        <Button title='add to cart' onPress={()=>handleaddToCart(item)}/>
+      }
     </View>
-  );
+
+
+ )
 };
 
 
